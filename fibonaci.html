@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Sequence</title>
+    <style>
+        /* Cyberpunk Theme Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            color: #00ff9d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            border: 2px solid #00ff9d;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .title-card {
+            color: #ff00ff;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .main-content h2 {
+            color: #ff00ff;
+            margin: 15px 0 5px;
+            font-size: 20px;
+        }
+
+        .main-content p {
+            color: #00ff9d;
+            font-size: 18px;
+            padding: 10px;
+            border: 1px solid #00ff9d;
+            border-radius: 5px;
+            background-color: #101010;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-container input,
+        .input-container button {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 16px;
+        }
+
+        .input-container input {
+            background-color: #1e1e1e;
+            color: #00ff9d;
+            border: 1px solid #00ff9d;
+        }
+
+        .input-container button {
+            background-color: #00ff9d;
+            color: #0d0d0d;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .input-container button:hover {
+            background-color: #00e699;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="input-container">
+        <label for="fibonacciCount">How many Fibonacci numbers do you want?</label>
+        <input type="number" id="fibonacciCount" min="1" placeholder="Enter a number">
+        <button onclick="displayFibonacci()">Submit</button>
+    </div>
+
+    <div class="card">
+        <h1 class="title-card">FIBONACCI</h1>
+        <div class="main-content">
+            <h2>Deret Fibonacci</h2>
+            <p id="result"></p>
+            <br>
+            <h2>Jumlah Fibonacci</h2>
+            <p id="result2"></p>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi untuk menghitung deret Fibonacci dan jumlahnya
+        function fibonaciTo(n) {
+            let fibSec = [0, 1];
+            for (let i = 2; i < n; i++) {
+                fibSec = [...fibSec, fibSec[i - 2] + fibSec[i - 1]];
+            }
+            return fibSec.slice(0, n);
+        }
+
+        function fibonaciTo2(n, sequence = [0, 1]) {
+            if (sequence.length >= n) {
+                return sequence;
+            } else {
+                return fibonaciTo2(n, [...sequence, sequence[sequence.length - 2] + sequence[sequence.length - 1]]);
+            }
+        }
+
+        // Fungsi untuk menampilkan deret dan jumlah Fibonacci
+        function displayFibonacci() {
+            let n = parseInt(document.getElementById('fibonacciCount').value);
+            if (isNaN(n) || n < 1) {
+                alert("Please enter a valid number greater than 0");
+                return;
+            }
+
+            let fibonacciArray = fibonaciTo2(n);
+            let fibonacciSum = fibonacciArray.reduce((acc, num) => acc + num, 0);
+
+            // Menampilkan hasil pada halaman
+            document.getElementById('result').innerText = fibonacciArray.join(', ');
+            document.getElementById('result2').innerText = fibonacciSum;
+        }
+    </script>
+</body>
+
+</html>

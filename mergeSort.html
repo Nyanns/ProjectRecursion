@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Merge Sort</title>
+    <style>
+        /* Cyberpunk Theme Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            color: #00ff9d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: #1e1e1e;
+            border: 2px solid #00ff9d;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 157, 0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .title-card {
+            color: #ff00ff;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        input,
+        button {
+            background-color: #101010;
+            color: #00ff9d;
+            border: 2px solid #00ff9d;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button {
+            cursor: pointer;
+            color: #ff00ff;
+            border-color: #ff00ff;
+        }
+
+        .result {
+            color: #ff00ff;
+            font-size: 18px;
+            padding: 10px;
+            border: 1px solid #00ff9d;
+            border-radius: 5px;
+            background-color: #101010;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1 class="title-card">Cyberpunk Merge Sort</h1>
+        <input type="text" id="inputArray" placeholder="Enter numbers separated by commas" />
+        <button onclick="sortArray()">Sort Array</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function mergeSort(array) {
+            if (array.length <= 1) {
+                return array;
+            }
+            const middle = Math.floor(array.length / 2);
+            const left = array.slice(0, middle);
+            const right = array.slice(middle);
+            return merge(mergeSort(left), mergeSort(right));
+        }
+
+        function merge(left, right) {
+            let result = [];
+            let leftIndex = 0;
+            let rightIndex = 0;
+
+            while (leftIndex < left.length && rightIndex < right.length) {
+                if (left[leftIndex] < right[rightIndex]) {
+                    result.push(left[leftIndex]);
+                    leftIndex++;
+                } else {
+                    result.push(right[rightIndex]);
+                    rightIndex++;
+                }
+            }
+            return [...result, ...left.slice(leftIndex), ...right.slice(rightIndex)];
+        }
+
+        function sortArray() {
+            const input = document.getElementById("inputArray").value;
+            const array = input.split(",").map(Number);
+            const sortedArray = mergeSort(array);
+            document.getElementById("result").innerText = `Sorted Array: [${sortedArray.join(", ")}]`;
+        }
+    </script>
+</body>
+
+</html>
